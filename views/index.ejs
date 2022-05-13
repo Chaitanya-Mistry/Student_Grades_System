@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/head')-%>
+    <title>Student Marks &tilde; Home</title>
+</head>
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+        <!-- Navigation bar -->
+        <%- include('layouts/navbar'); -%>
+
+        <div class="main">
+            <!-- If user is Admin -->
+            <%if(adminData){%>
+                <div class="adminInstContainer">
+                    <h2>Welcome <span id="adminName"><%=adminData.username%></span></h2>
+                    <div id="adInstructions">
+                        <h3>Please follow below steps to use this website properly</h3>
+                        <ol>
+                            <li>Add Subject</li>
+                            <li>Add Teachers & Assign them a subject</li>
+                            <li>Add Students</li>
+                        </ol>
+                    </div>
+                </div>
+            <% } else { %>
+                <h2>Welcome to the student marksheet Generator !</h2>        
+            <% } %>
+        </div>
+
+        <!-- Footer -->
+        <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/head')-%>
+    <title>Student Marks &tilde; Add Teacher</title>
+</head>
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+        <!-- Navigation bar -->
+        <%- include('layouts/navbar'); -%>
+
+        <div class="main">
+            <!-- Add Teacher Form Goes Here -->
+            <form action="addTeacher" method="post" id="teacher_form" class="general_form">
+                <!-- Incoming Messages From Server -->
+
+                <h2>Add Teacher</h2>
+                <input type="text" name="teacher_name" id="teacher_name" placeholder="Name" required>
+                <h5 id="teacher_name_check" style="color: red;">
+                    <!-- Teacher name is missing -->
+                </h5>
+                <input type="email" name="teacher_email" id="teacher_email" placeholder="Email" required>
+
+                <input type="password" name="password_teacher" id="password_teacher" placeholder="Password" required>
+                        <h5 id="uPassCheck" style="color: red;">
+                            <!-- Password did not match -->
+                        </h5>
+                        <input type="password" name="password_repeat_teacher" id="password_repeat_teacher" placeholder="Re-enter password">
+                        <h5 id="uPassRepeatCheck" style="color: red;">
+                            <!-- Password did not match -->
+                        </h5>
+                <!-- Subjects will be populated from the database server -->
+                <select name="teacher_subject">
+                    <option value="" disabled selected>Select one subject</option>
+                    <%if(subjects) {%>
+                        <%for(let i=0;i<subjects.length;i++) {%>
+                            <option value="<%=subjects[i].title%>"><%=subjects[i].title%></option>
+                        <% } %>
+                    <% } %>
+                </select>
+                <input type="submit" value="Add Teacher" id="add_teacher_btn">
+            </form>
+            
+        </div>
+
+        <!-- Footer -->
+        <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/head')-%>
+    <title>Student Marks &tilde; Add Subject</title>
+</head>
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+        <!-- Navigation bar -->
+        <%- include('layouts/navbar'); -%>
+
+        <div class="main">
+            <!-- Create Subject Form Goes Here -->
+            <form action="createSubject" method="post" id="subject_form" class="general_form">
+                <!-- Incoming Messages From Server -->
+                <!-- If subject has already been created -->
+                <%if(subjectMessage == 'Subject is already created') {%>
+                    <h2 class="error">Subject is already created by you<span style='font-size:30px;'>&#128400;</span></h2>
+                <% } %>
+                <!-- If new subject is added to the database -->
+                <%if(subjectMessage == 'Subject has been added successfully') {%>
+                    <h2 class="success">Subject has been added successfully in the database<span style='font-size:30px;'>&#9989;</span></h2>
+                <% } %>
+                <!-- Login Info -->
+                <h2>Add Subjects</h2>
+                <input type="text" name="subject_title" id="subject_title" placeholder="Subject Title" required>
+                <h5 id="sub_title_check" style="color: red;">
+                    <!-- Subject is missing -->
+                </h5>
+                <input type="number" name="subject_credit" id="subject_credit" placeholder="Subject credit" min="1" required>
+
+                <input type="submit" value="Create Subject" id="subject_btn">
+            </form>
+            
+        </div>
+
+        <!-- Footer -->
+        <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+</html>

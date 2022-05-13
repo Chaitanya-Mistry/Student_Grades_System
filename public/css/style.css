@@ -1,0 +1,181 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --bgBlack:rgb(48, 48, 48);
+    --linkColor:rgb(141, 188, 255);
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+.root{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 50px auto 60px;
+    height: 100%;
+    width: 100%;
+}
+header{
+    background-color: var(--bgBlack);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: .9px;
+    word-spacing: 1.7px;
+}
+nav{
+    font-family: 'Heebo', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1.7px;
+    background-color: var(--bgBlack);
+    height: 45px;
+    margin: 1px 0px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+nav a{
+    text-decoration: none;
+    color: white;
+    margin: 0px 10px;
+    cursor: pointer;
+    transition-property: color;
+    transition-duration: .2s;
+    transition-timing-function: linear;
+}
+nav a:hover{color: var(--linkColor);}
+.activeLink{color: var(--linkColor);}
+.main{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Heebo', sans-serif;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    text-transform: capitalize;
+}
+.error{
+    background-color: rgb(255, 102, 102);
+    width: fit-content;
+    color: black !important;
+    margin: 10px auto;
+    padding: 10px 5px;
+    font-size: 20px !important;
+}
+.success{
+    background-color: rgb(191, 255, 102);
+    width: fit-content;
+    color: black !important;
+    margin: 10px auto;
+    padding: 10px 5px;
+    font-size: 20px !important; 
+}
+.adminInstContainer{
+    border: 1px solid rgb(188, 188, 188);
+    width: 30%;
+    padding: 10px;
+}
+.adminInstContainer h2{
+    text-align: center;
+}
+#adInstructions{
+    border-top: 1px solid grey;
+    margin: 10px;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#grade_form h2{
+    font-size: 20px;
+}
+#adInstructions h3{
+    margin: 0px 0px 10px 0px;
+}
+#adminName{
+    color: dodgerblue;
+}
+#studentSubjects{
+    border: 1px solid grey;
+    border-radius: 13px;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+#studentSubjects h3{
+    margin-bottom: 20px;
+    color: dodgerblue;
+    border-bottom: 1px solid purple;
+    width:fit-content;
+}
+.subjectsCheckboxes{
+    width: fit-content;
+    margin-right: -80px;
+    margin-top: -25px;
+}
+/* Login Form & Sign_Up Form */
+.general_form{
+    border: 2px solid rgb(193, 193, 193);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 13px;
+}
+.general_form h2{
+    font-size: 33px;
+    letter-spacing: 1px;
+    color: rgb(40, 126, 245);
+}
+.general_form,#sign_up_form h2,input,select{font-family: 'Heebo', sans-serif;}
+.general_form input,select{
+    font-size: 21px;
+    padding: 10px;
+    margin: 10px 0px;
+    border: 1px solid grey;
+    border-radius: 13px;
+    width: 100%;
+}
+.general_form input[type=submit]{
+    background-color: var(--linkColor);
+    border: none;
+    border-radius: 13px;
+    width: 100%;
+    transition-property: background-color;
+    transition-duration: .2s;
+    transition-timing-function: linear;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* Login Button Hover Effect */
+.general_form input[type=submit]:hover{background-color: rgb(118, 175, 255);}
+footer{
+    background-color: var(--bgBlack);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    /* padding: 10px; */
+}

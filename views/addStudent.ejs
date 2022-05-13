@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/head')-%>
+    <title>Student Marks &tilde; Add Student</title>
+</head>
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+        <!-- Navigation bar -->
+        <%- include('layouts/navbar'); -%>
+
+        <div class="main">
+            <!-- Add Student Form Goes Here -->
+            <form action="addStudent" method="post" id="student_form" class="general_form">
+                <!-- Incoming Messages From Server -->
+
+                <h2>Add Student</h2>
+                <input type="text" name="student_name" id="student_name" placeholder="Name" required>
+                <h5 id="student_name_check" style="color: red;">
+                    <!-- Student name is missing -->
+                </h5>
+                <input type="number" name="student_age" id="student_age" placeholder="Age" min="18" max="80" required>
+                <input type="email" name="student_email" id="student_email" placeholder="Email" required>
+
+                <!-- Student's subjects -->
+                <div id="studentSubjects">
+                    <h3>Assign subjects</h3>
+                    <%if(subjects) {%>
+                        <%for(let i=0;i<subjects.length;i++){%>
+                            <input type="checkbox" id="<%=i%>" name="studentSubjects" value="<%=subjects[i].title%>">
+                            <label for="subject<%=i%>" class="subjectsCheckboxes"><%=subjects[i].title%></label><br>
+                        <% } %>
+                    <% } %>    
+                </div>
+                               
+                <input type="password" name="password_student" id="password_student" placeholder="Password" required>
+                        <h5 id="uPassCheck" style="color: red;">
+                            <!-- Password did not match -->
+                        </h5>
+                        <input type="password" name="password_repeat_student" id="password_repeat_student" placeholder="Re-enter password">
+                        <h5 id="uPassRepeatCheck" style="color: red;">
+                            <!-- Password did not match -->
+                        </h5>
+                <input type="submit" value="Add Student" id="add_student_btn">
+            </form>
+            
+        </div>
+
+        <!-- Footer -->
+        <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+</html>

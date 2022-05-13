@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/head')-%>
+    <title>Student Marks &tilde; Add Grade</title>
+</head>
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+        <!-- Navigation bar -->
+        <%- include('layouts/navbar'); -%>
+
+        <div class="main">
+            <!-- Grade Form Goes Here -->
+            <form action="addGrade" method="post" id="grade_form" class="general_form">
+                <!-- Incoming Messages From Server -->
+                <h2>Welcome <span id="teacherName"><%=teacher.username%></span> the faculty of  '<%=teacher.teaches%>'</h2>
+                <!-- Students will be populated from the database server -->
+                <select name="student_name" required>
+                    <option value="" disabled selected>Select one student</option>
+                    <%if(students) {%>
+                        <%for(let i=0;i<students.length;i++) {%>
+                            <option value="<%=students[i].username%>"><%=students[i].username%></option>
+                        <% } %>
+                    <% } %>
+                </select>
+                <select name="student_grade" required>
+                    <option value="" disabled selected>Assign Grade</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+                <input type="submit" value="Upload Grade" id="add_grade_btn">
+            </form>
+            
+        </div>
+
+        <!-- Footer -->
+        <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+</html>

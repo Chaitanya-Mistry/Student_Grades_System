@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/head')-%>
+        <title>Student Marks &tilde; Login</title>
+</head>
+
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+            <!-- Navigation bar -->
+            <%- include('layouts/navbar'); -%>
+
+                <div class="main">
+                    <!-- Login Form Goes Here -->
+                    <form action="processLogin" method="post" id="login_form" class="general_form">
+                        <!-- Display error message if any -->
+                        <%if(error){ %>
+                            <% if(error == 'No user found please sign up first..'){ %>
+                                <h2 class="error">No user found </h2>                            
+                            <% } else { %>
+                                <h2 class="error">Password did not match. Please try again! </h2>
+                            <% } %>                          
+                        <% } %>
+                        <!-- Login Info -->
+                        <h2>Welcome</h2>
+                        <input type="text" name="uname" id="uname" placeholder="Username" required>
+                        <h5 id="uNameCheckLogin" style="color: red;">
+                            <!-- Username is missing -->
+                        </h5>
+                        <input type="password" name="upassword" id="upassword" placeholder="Password" required>
+                        <input type="submit" value="Login" id="login_btn">
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+
+</html>

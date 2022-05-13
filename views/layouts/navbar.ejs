@@ -1,0 +1,20 @@
+<nav> 
+    
+    <!-- if user logged in -->
+    <%if(loggedInUser && loggedInUserType){%>
+        <%if(loggedInUserType == 'Admin'){%>
+            <a href="/" class="links">Home</a>
+            <a href="/addSubject" class="links">Add Subject</a>
+            <a href="/addTeacher" class="links">Add Teacher</a>
+            <a href="/addStudent" class="links">Add Student</a>
+        <%}%>
+        <%if(loggedInUserType == 'Teacher'){%>
+            <a href="/addGrade" class="links">Assigne Grade</a>
+        <% } %>
+        <a href="/logout">Logout</a>
+    <% } else {%>
+        <a href="/" class="links">Home</a>
+        <a href="/login" class="links">Login</a>
+        <a href="/signup" class="links">Sign Up</a>
+    <%}%>
+</nav>
