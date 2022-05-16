@@ -16,6 +16,12 @@
             <!-- Grade Form Goes Here -->
             <form action="addGrade" method="post" id="grade_form" class="general_form">
                 <!-- Incoming Messages From Server -->
+                <%if(success){%>
+                    <h2 class="success">Grade has been uploaded !</h2>
+                <%}%>
+                <%if(error){%>
+                    <h2 class="error">Grade has not been uploaded !</h2>
+                <%}%>
                 <h2>Welcome <span id="teacherName"><%=teacher.username%></span> the faculty of  '<%=teacher.teaches%>'</h2>
                 <!-- Students will be populated from the database server -->
                 <select name="student_name" required>

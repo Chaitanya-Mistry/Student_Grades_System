@@ -117,13 +117,33 @@ const addGrade = async(req,res) =>{
     // Fetch selected student's data
     const student_name = req.body.student_name;
     const student_grade = req.body.student_grade;
+    const fetchedStudents = await user.find({usertype:'Student','learning.subjectName':teacherSubject});
 
-    // const studentData = await user.findOneAndUpdate({username:req.body.student_name},
-    //     {
-    //         $set:{
-                
-    //         }
-    //     });
+    const fetchedStudent = await user.findOne({username:student_name});
+    const studentSubjects = fetchedStudent.learning;
+
+    let updateAtIndex;
+    for(let i=0;i<studentSubjects.length;i++){
+        if(studentSubjects[i].subjectName == teacherSubject){
+            updateAtIndex = i;
+        }
+    }
+
+    const updatedStudent = await user.updateOne({username:student_name},
+        {
+            $set:{
+                [`learning.${updateAtIndex}.subjectGrade`]:student_grade
+            }
+        }
+    );
+    if(updatedStudent){
+        console.log('Grade has been added');
+        return res.render('addGrade',{teacher:teacherData,students:fetchedStudents,success:'Success',error:null});
+    }
+    else{
+        console.log('Error...Grade has not been added');
+        return res.render('addGrade',{teacher:teacherData,students:fetchedStudents,success:null,error:'error'});
+    }
 }
 // Logout
 const logout = (req, res) => {
@@ -132,4 +152,4 @@ const logout = (req, res) => {
     });
 }
 
-module.exports = { registerUser, processLogin, addTeacher, addStudent ,logout };
+module.exports = { registerUser, processLogin, addTeacher, addStudent , addGrade ,logout };

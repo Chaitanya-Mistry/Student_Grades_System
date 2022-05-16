@@ -88,7 +88,7 @@ app.get('/addStudent',adminAuthentication,async(req,res)=>{
 app.get('/addGrade',teacherAuthentication,async(req,res)=>{
     const fetchedTeacher = await user.findById(req.session.userId);
     const fetchedStudents = await user.find({usertype:'Student'});
-    res.render('addGrade',{teacher:fetchedTeacher,students:fetchedStudents});
+    res.render('addGrade',{teacher:fetchedTeacher,students:fetchedStudents,success:null,error:null});
 });
 app.get('/logout',userController.logout);
 
@@ -97,5 +97,5 @@ app.post('/registerUser', userController.registerUser); // Sign Up
 app.post('/createSubject',adminAuthentication,createSubject); // Add Subject
 app.post('/addTeacher',adminAuthentication,userController.addTeacher); // Add Teacher
 app.post('/addStudent',adminAuthentication,userController.addStudent); // Add Student
-// app.post('/addGrade',teacherAuthentication,userController.addGrade);
+app.post('/addGrade',teacherAuthentication,userController.addGrade);   // Add Grade
 app.post('/processLogin', userController.processLogin); // Login 
