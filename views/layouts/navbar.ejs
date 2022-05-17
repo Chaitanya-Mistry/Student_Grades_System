@@ -11,10 +11,13 @@
         <%if(loggedInUserType == 'Teacher'){%>
             <a href="/addGrade" class="links">Assigne Grade</a>
         <% } %>
+        <%if(loggedInUserType == 'Student'){%>
+            <a href="/" class="links">Home</a>
+            <a href="/myGrades" class="links">My Grades</a>
+        <% } %>
         <a href="/logout">Logout</a>
     <% } else {%>
         <a href="/" class="links">Home</a>
         <a href="/login" class="links">Login</a>
-        <a href="/signup" class="links">Sign Up</a>
     <%}%>
 </nav>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/head')-%>
+    <title>Student Marks &tilde; my grades</title>
+</head>
+<body>
+
+    <div class="root">
+        <!-- Header -->
+        <%- include('layouts/header'); -%>
+        <!-- Navigation bar -->
+        <%- include('layouts/navbar'); -%>
+
+        <div class="main">
+            <!-- Student grades goes here -->
+            <div id="studentGrades">
+                <h2 class="studentName"><%=studentData.username%>'s Grades</h2>
+                <table>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Grade</th>
+                    </tr>
+                    <%for(let i=0;i<studentLearning.length;i++){%>
+                        <tr>
+                            <td><%=studentLearning[i].subjectName%></td>
+                            <td><%=studentLearning[i].subjectGrade%></td>
+                        </tr>
+                    <%}%>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('layouts/footer')-%>
+    </div>
+
+</body>
+</html>

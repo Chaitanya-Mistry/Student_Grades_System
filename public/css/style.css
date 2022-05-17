@@ -84,15 +84,13 @@ nav a:hover{color: var(--linkColor);}
     padding: 10px 5px;
     font-size: 20px !important; 
 }
-.adminInstContainer{
+.adminInstContainer,.studentInstContainer{
     border: 1px solid rgb(188, 188, 188);
     width: 30%;
     padding: 10px;
 }
-.adminInstContainer h2{
-    text-align: center;
-}
-#adInstructions{
+.adminInstContainer h2,.studentInstContainer h2{ text-align: center; }
+#adInstructions,#studentInstructions{
     border-top: 1px solid grey;
     margin: 10px;
     padding: 7px;
@@ -101,15 +99,9 @@ nav a:hover{color: var(--linkColor);}
     justify-content: center;
     align-items: center;
 }
-#grade_form h2{
-    font-size: 20px;
-}
-#adInstructions h3{
-    margin: 0px 0px 10px 0px;
-}
-#adminName{
-    color: dodgerblue;
-}
+#grade_form h2{font-size: 20px;}
+#adInstructions h3,#studentInstructions h3{ margin: 0px 0px 10px 0px; }
+#adminName,#studentName{color: dodgerblue;}
 #studentSubjects{
     border: 1px solid grey;
     border-radius: 13px;
@@ -165,6 +157,10 @@ nav a:hover{color: var(--linkColor);}
     transition-timing-function: linear;
     font-weight: bold;
     cursor: pointer;
+}
+table{
+    width:100%;
+    border:2px solid red;
 }
 /* Login Button Hover Effect */
 .general_form input[type=submit]:hover{background-color: rgb(118, 175, 255);}

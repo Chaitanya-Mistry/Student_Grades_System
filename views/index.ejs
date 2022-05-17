@@ -26,6 +26,18 @@
                         </ol>
                     </div>
                 </div>
+            <%} else if(studentData){%>
+                <div class="studentInstContainer">
+                    <h2>Welcome <span id="studentName"><%=studentData.username%></span></h2>
+                    <div id="studentInstructions">
+                        <h3>You are enrolled in following subjects</h3>
+                        <ol>
+                            <%for(let i=0;i<studentData.learning.length;i++){%>
+                                <li><%=studentData.learning[i].subjectName%></li>
+                            <%}%>
+                        </ol>
+                    </div>
+                </div>
             <% } else { %>
                 <h2>Welcome to the student marksheet Generator !</h2>        
             <% } %>

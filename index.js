@@ -22,6 +22,7 @@ app.set('view engine', 'ejs');
 const isUserLoggedIn = require('./middleware/isUserLoggedIn');
 const adminAuthentication = require('./middleware/adminAuthentication');
 const teacherAuthentication = require('./middleware/teacherAuthentication');
+const studentAuthentication = require('./middleware/studentAuthentication');
 
 // Models
 const user = require('./models/user');
@@ -54,18 +55,24 @@ app.use('*',(req,res,next)=>{
 app.get('/', async(req, res) => {
     if(req.session.userType == 'Admin'){
         await user.findById(req.session.userId).then((data)=>{
-          return res.render('index',{ adminData : data });
+          return res.render('index',{ adminData : data, studentData:null});
         }).catch(error=>console.log(error));
     }
     else if(req.session.userType == 'Teacher'){
         await user.findById(req.session.userId).then((data)=>{
             console.log('Teacher is Found..:',data);
-           return res.render('index',{teacherData:data});
+           return res.render('index',{teacherData:data , admminData:null, studentData:null});
         }).catch(error=>console.log(error));
+    }
+    else if(req.session.userType == 'Student'){
+        await user.findById(req.session.userId).then((data)=>{
+            console.log('Student is found ..:',data);
+            return res.render('index',{adminData:null,studentData : data});
+        });
     }
     else{
           // res.sendFile(path.resolve(__dirname,'views/index.ejs'));
-          res.render('index',{adminData:null,teacherData:null}); // With the help of ejs now we can use render method which simplify the thing  
+          res.render('index',{adminData:null,teacherData:null,studentData:null}); // With the help of ejs now we can use render method which simplify the thing  
     }
 });
 app.get('/login',isUserLoggedIn ,(req, res) => {
@@ -89,6 +96,12 @@ app.get('/addGrade',teacherAuthentication,async(req,res)=>{
     const fetchedTeacher = await user.findById(req.session.userId);
     const fetchedStudents = await user.find({usertype:'Student'});
     res.render('addGrade',{teacher:fetchedTeacher,students:fetchedStudents,success:null,error:null});
+});
+app.get('/myGrades',studentAuthentication,async(req,res)=>{
+    const fetchedStudent = await user.findOne({_id:req.session.userId});
+    const studentSubjects = fetchedStudent.learning;
+    console.log('From my grades',fetchedStudent,studentSubjects);
+    res.render('myGrades',{studentData:fetchedStudent,studentLearning:studentSubjects});
 });
 app.get('/logout',userController.logout);
 

@@ -1,6 +1,7 @@
 const user = require('../models/user');
 const bcrypt = require('bcrypt');
 const { compareSync } = require('bcrypt');
+const { findOneAndUpdate } = require('../models/user');
 // Login 
 const processLogin = async(req, res) => {
     const uname = req.body.uname;
@@ -12,17 +13,25 @@ const processLogin = async(req, res) => {
         bcrypt.compare(upassword,userData.password,(error,match)=>{
             if(match){
                 console.log('matched');
-                // If the user is admin
+                // If user is an admin
                 if(userData.usertype == 'Admin'){
                     req.session.userId = userData._id;
                     req.session.userType = userData.usertype;
                     return res.redirect('/');
                 }
+                // If user is a teacher
                 else if(userData.usertype == 'Teacher'){
                     req.session.userId = userData._id;
                     req.session.userType = userData.usertype;
                     console.log('Yes logged in user is :Teacher');
                     res.redirect('/addGrade');
+                }
+                // If user is a student
+                else if(userData.usertype == 'Student'){
+                    req.session.userId = userData._id;
+                    req.session.userType = userData.usertype;
+                    console.log('Yes logged in user is :Student');
+                    res.redirect('/');
                 }
                 else{
                     return res.redirect('/');
@@ -86,19 +95,27 @@ const addStudent = async(req,res) =>{
         email: req.body.student_email,
         usertype: 'Student'
     };
-    console.log(studentSubjects);
+    // console.log(studentSubjects);
     const studentData = await user.create(newStudent);
     if(studentData){
         console.log('Student has been added successfully', studentData);
         // Array of objects
+        let arrayOfStudentSubjects = [];
         for(let i=0;i<studentSubjects.length;i++){
-            studentData.learning.push({
+            arrayOfStudentSubjects.push({
                 subjectName:`${studentSubjects[i]}`,
                 subjectGrade:'x'
             });
         }
-        const finalStudent = await studentData.save();
-        console.log(finalStudent);
+        console.log('Array of : ',arrayOfStudentSubjects);
+        // const finalStudent = await studentData.save();
+        const finalStudent = await user.findOneAndUpdate({username:newStudent.username},
+            {
+                $set:{
+                    learning: arrayOfStudentSubjects
+                }
+            });
+        console.log('Final Updated student',finalStudent);
         res.redirect('/addStudent');
     }
     else{
@@ -129,7 +146,7 @@ const addGrade = async(req,res) =>{
         }
     }
 
-    const updatedStudent = await user.updateOne({username:student_name},
+    const updatedStudent = await user.findOneAndUpdate({username:student_name},
         {
             $set:{
                 [`learning.${updateAtIndex}.subjectGrade`]:student_grade
