@@ -16,7 +16,8 @@ const userSchema = new Schema({
     learning: [subjectSchema],
     email:    {type: String},
     phone:    {type: Number},
-    degree:   {type: String}
+    degree:   {type: String},
+    image :   {type:String}
 });
 
 userSchema.pre('save',function(next){

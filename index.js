@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require("express-fileupload");
 // Express session
 const ExpressSession = require('express-session');
 const path = require('path');
@@ -31,6 +32,7 @@ const subject = require('./models/subject');
 // Middlewares
 // From where to get static files like CSS,JS etc..
 app.use(express.static('public'));
+app.use(fileUpload());
 // Body Parsing Middleware to make form data available under "req.body" property ..
 app.use(express.json());
 app.use(express.urlencoded());

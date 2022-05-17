@@ -15,7 +15,8 @@
         <div class="main">
             <!-- Student grades goes here -->
             <div id="studentGrades">
-                <h2 class="studentName"><%=studentData.username%>'s Grades</h2>
+        
+                <h2><span class="studentName"><%=studentData.username%></span>'s Grades</h2>
                 <table>
                     <tr>
                         <th>Subject</th>
@@ -28,6 +29,7 @@
                         </tr>
                     <%}%>
                 </table>
+                <button id="generateTranscript">Generate Transcript</button>
             </div>
         </div>
 

@@ -14,7 +14,7 @@
 
         <div class="main">
             <!-- Add Student Form Goes Here -->
-            <form action="addStudent" method="post" id="student_form" class="general_form">
+            <form action="addStudent" method="post" id="student_form" class="general_form" enctype="multipart/form-data">
                 <!-- Incoming Messages From Server -->
 
                 <h2>Add Student</h2>
@@ -44,6 +44,8 @@
                         <h5 id="uPassRepeatCheck" style="color: red;">
                             <!-- Password did not match -->
                         </h5>
+                        <label for="student_image">Select student's image:</label>
+                        <input type="file" accept="image/jpeg, image/png" id="student_image" name="student_image" required>
                 <input type="submit" value="Add Student" id="add_student_btn">
             </form>
             

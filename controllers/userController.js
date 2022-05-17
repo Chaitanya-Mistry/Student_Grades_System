@@ -1,5 +1,6 @@
 const user = require('../models/user');
 const bcrypt = require('bcrypt');
+const path = require('path');
 const { compareSync } = require('bcrypt');
 const { findOneAndUpdate } = require('../models/user');
 // Login 
@@ -88,42 +89,39 @@ const addTeacher = (req,res) => {
 //Add Student
 const addStudent = async(req,res) =>{
     const studentSubjects = req.body.studentSubjects;
+    const image = req.files.student_image;
        // Add new student.
        let newStudent = {
         username: req.body.student_name,
         password: req.body.password_student,
         email: req.body.student_email,
-        usertype: 'Student'
+        usertype: 'Student',
+        image: `/img/${image.name}`
     };
-    // console.log(studentSubjects);
-    const studentData = await user.create(newStudent);
-    if(studentData){
-        console.log('Student has been added successfully', studentData);
-        // Array of objects
-        let arrayOfStudentSubjects = [];
-        for(let i=0;i<studentSubjects.length;i++){
-            arrayOfStudentSubjects.push({
-                subjectName:`${studentSubjects[i]}`,
-                subjectGrade:'x'
-            });
-        }
-        console.log('Array of : ',arrayOfStudentSubjects);
-        // const finalStudent = await studentData.save();
-        const finalStudent = await user.findOneAndUpdate({username:newStudent.username},
-            {
-                $set:{
-                    learning: arrayOfStudentSubjects
-                }
-            });
-        console.log('Final Updated student',finalStudent);
-        res.redirect('/addStudent');
-    }
-    else{
-        console.log('Erro while creating student:',error)
-        return res.redirect("/addStudent");
-    }
-        
-
+    await image.mv(path.resolve(__dirname,'../public/img',image.name),async(error)=>{
+        await user.create(newStudent).then(async(data)=>{
+            console.log('Student has been added successfully', data);
+            // Array of objects
+            let arrayOfStudentSubjects = [];
+            for(let i=0;i<studentSubjects.length;i++){
+                arrayOfStudentSubjects.push({
+                    subjectName:`${studentSubjects[i]}`,
+                    subjectGrade:'x'
+                });
+            }
+            const finalStudent = await user.findOneAndUpdate({username:newStudent.username},
+                {
+                    $set:{
+                        learning: arrayOfStudentSubjects
+                    }
+                });
+            console.log('Final Updated student',finalStudent);
+            res.redirect('/addStudent');
+        }).catch((error)=>{
+            console.log('Erro while creating student:')
+            return res.redirect("/addStudent");
+        });
+    });    
 }
 //Add Grade
 const addGrade = async(req,res) =>{

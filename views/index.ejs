@@ -28,7 +28,10 @@
                 </div>
             <%} else if(studentData){%>
                 <div class="studentInstContainer">
-                    <h2>Welcome <span id="studentName"><%=studentData.username%></span></h2>
+                    <h2>Welcome <span class="studentName"><%=studentData.username%></span></h2>
+                    <div id="student_image">
+                        <img src="<%=studentData.image%>" alt="<%=studentData.username%>'s image">
+                    </div>
                     <div id="studentInstructions">
                         <h3>You are enrolled in following subjects</h3>
                         <ol>
