@@ -1,4 +1,5 @@
 const user = require('../models/user');
+const subject = require('../models/subject');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const { compareSync } = require('bcrypt');
@@ -48,26 +49,8 @@ const processLogin = async(req, res) => {
         return res.render('login',{error:'No user found please sign up first..'});
     }
 }     
-// Sign Up 
-const registerUser = (req, res) => {
-    // Create new user.
-    let newUser = {
-        username: req.body.uname,
-        password: req.body.upassword,
-        usertype: req.body.usertype,
-    };
-    user.create(newUser, (error, userData) => {
-        if (error) {
-            return res.redirect("/sign_up");
-        }
-        else {
-            console.log('User registered successfully..', userData);
-            res.redirect('login');
-        }
-    });
-}
 // Add teacher
-const addTeacher = (req,res) => {
+const addTeacher = async(req,res) => {
      // Add new teacher.
      let newTeacher = {
         username: req.body.teacher_name,
@@ -76,6 +59,11 @@ const addTeacher = (req,res) => {
         teaches: req.body.teacher_subject,
         usertype: 'Teacher'
     };
+    const fetchedSubject = await subject.findOneAndUpdate({_id:req.body.teacher_subject},{
+        $set:{
+            isAssigned : true
+        }
+    });
     user.create(newTeacher, (error, teacherData) => {
         if (error) {
             return res.redirect("/addTeacher");
@@ -126,8 +114,9 @@ const addStudent = async(req,res) =>{
 //Add Grade
 const addGrade = async(req,res) =>{
     // Fetch logged in teacher's subject
-    const teacherData = await user.findById(req.session.userId);
-    const teacherSubject = teacherData.teaches;
+    const teacherData = await user.findById(req.session.userId).populate('teaches');
+    const teacherSubject = teacherData.teaches.title;
+    console.log('add Grade: teacher data : ',teacherData,teacherSubject);
 
     // Fetch selected student's data
     const student_name = req.body.student_name;
@@ -167,4 +156,4 @@ const logout = (req, res) => {
     });
 }
 
-module.exports = { registerUser, processLogin, addTeacher, addStudent , addGrade ,logout };
+module.exports = { processLogin, addTeacher, addStudent , addGrade ,logout };

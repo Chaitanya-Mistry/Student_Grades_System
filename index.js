@@ -87,7 +87,7 @@ app.get('/addSubject',adminAuthentication,(req,res)=>{
     res.render('addSubject',{subjectMessage:null});
 });
 app.get('/addTeacher',adminAuthentication,async(req,res)=>{
-    const fetchedSubject = await subject.find({});
+    const fetchedSubject = await subject.find({isAssigned:false});
     res.render('addTeacher',{subjects: fetchedSubject});
 });
 app.get('/addStudent',adminAuthentication,async(req,res)=>{
@@ -95,8 +95,10 @@ app.get('/addStudent',adminAuthentication,async(req,res)=>{
     res.render('addStudent',{subjects:fetchedSubjects});
 });
 app.get('/addGrade',teacherAuthentication,async(req,res)=>{
-    const fetchedTeacher = await user.findById(req.session.userId);
-    const fetchedStudents = await user.find({usertype:'Student'});
+    const fetchedTeacher = await user.findById(req.session.userId).populate('teaches');
+    const teacherTeaches = fetchedTeacher.teaches.title;
+    // console.log('add Grade Fetched Teacher:',fetchedTeacher);
+    const fetchedStudents = await user.find({usertype:'Student','learning.subjectName':teacherTeaches});
     res.render('addGrade',{teacher:fetchedTeacher,students:fetchedStudents,success:null,error:null});
 });
 app.get('/myGrades',studentAuthentication,async(req,res)=>{
@@ -108,7 +110,6 @@ app.get('/myGrades',studentAuthentication,async(req,res)=>{
 app.get('/logout',userController.logout);
 
 // POST Request Handlers
-app.post('/registerUser', userController.registerUser); // Sign Up
 app.post('/createSubject',adminAuthentication,createSubject); // Add Subject
 app.post('/addTeacher',adminAuthentication,userController.addTeacher); // Add Teacher
 app.post('/addStudent',adminAuthentication,userController.addStudent); // Add Student

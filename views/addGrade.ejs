@@ -22,7 +22,7 @@
                 <%if(error){%>
                     <h2 class="error">Grade has not been uploaded !</h2>
                 <%}%>
-                <h2>Welcome <span id="teacherName"><%=teacher.username%></span> the faculty of  '<%=teacher.teaches%>'</h2>
+                <h2>Welcome <span id="teacherName"><%=teacher.username%></span> the faculty of  '<%=teacher.teaches.title%>'</h2>
                 <!-- Students will be populated from the database server -->
                 <select name="student_name" required>
                     <option value="" disabled selected>Select one student</option>

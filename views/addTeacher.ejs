@@ -37,7 +37,7 @@
                     <option value="" disabled selected>Select one subject</option>
                     <%if(subjects) {%>
                         <%for(let i=0;i<subjects.length;i++) {%>
-                            <option value="<%=subjects[i].title%>"><%=subjects[i].title%></option>
+                            <option value="<%=subjects[i]._id%>"><%=subjects[i].title%></option>
                         <% } %>
                     <% } %>
                 </select>
