@@ -29,10 +29,12 @@
                 <div id="studentSubjects">
                     <h3>Assign subjects</h3>
                     <%if(subjects) {%>
-                        <%for(let i=0;i<subjects.length;i++){%>
-                            <input type="checkbox" id="<%=i%>" name="studentSubjects" value="<%=subjects[i].title%>">
-                            <label for="subject<%=i%>" class="subjectsCheckboxes"><%=subjects[i].title%></label><br>
-                        <% } %>
+                        <div id="subCheckContainer">
+                            <%for(let i=0;i<subjects.length;i++){%>
+                                <input type="checkbox" id="<%=i%>" name="studentSubjects" value="<%=subjects[i].title%>">
+                                <label for="subject<%=i%>" class="subjectsCheckboxesLabel"><%=subjects[i].title%></label><br>
+                            <% } %>
+                        </div>
                     <% } %>    
                 </div>
                                
