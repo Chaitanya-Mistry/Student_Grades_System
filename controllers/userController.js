@@ -106,10 +106,12 @@ const addStudent = async(req,res) =>{
                     }
                 });
             console.log('Final Updated student',finalStudent);
-            res.redirect('/addStudent');
-        }).catch((error)=>{
-            console.log('Erro while creating student:')
-            return res.redirect("/addStudent");
+            const fetchedSubjects = await subject.find({});
+            res.render('addStudent',{subjects:fetchedSubjects,success:"Success",error:null});
+        }).catch(async(error)=>{
+            console.log('Erro while creating student:');
+            const fetchedSubjects = await subject.find({});
+            return res.render("addStudent",{subjects:fetchedSubjects,success:null,error:"Error"});
         });
     });    
 }

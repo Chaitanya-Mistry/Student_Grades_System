@@ -16,7 +16,12 @@
             <!-- Add Student Form Goes Here -->
             <form action="addStudent" method="post" id="student_form" class="general_form" enctype="multipart/form-data">
                 <!-- Incoming Messages From Server -->
-
+                <%if(success){%>
+                    <h2 class="success">Student's record has been created</h2>
+                <%}%>
+                <%if(error){%>
+                    <h2 class="error">Error while Creating student's record</h2>
+                <%}%>
                 <h2>Add Student</h2>
                 <input type="text" name="student_name" id="student_name" placeholder="Name" required>
                 <h5 id="student_name_check" style="color: red;">

@@ -14,8 +14,7 @@ const createSubject = async(req, res) => {
     else{
         subject.create({
             title:newSubject.subject_title,
-            credit:newSubject.subject_credit,
-            // isAssigned:false,
+            credit:newSubject.subject_credit
         }, (error, subjectData) => {
             if (error) {
                 return res.render("addSubject",{subjectMessage:'Subject was not created'});

@@ -91,7 +91,7 @@ app.get('/addTeacher',adminAuthentication,async(req,res)=>{
 });
 app.get('/addStudent',adminAuthentication,async(req,res)=>{
     const fetchedSubjects = await subject.find({});
-    res.render('addStudent',{subjects:fetchedSubjects});
+    res.render('addStudent',{subjects:fetchedSubjects,success:null,error:null});
 });
 app.get('/addGrade',teacherAuthentication,async(req,res)=>{
     const fetchedTeacher = await user.findById(req.session.userId).populate('teaches');
