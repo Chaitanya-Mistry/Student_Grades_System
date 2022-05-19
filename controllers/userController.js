@@ -59,18 +59,20 @@ const addTeacher = async(req,res) => {
         teaches: req.body.teacher_subject,
         usertype: 'Teacher'
     };
-    const fetchedSubject = await subject.findOneAndUpdate({_id:req.body.teacher_subject},{
+    await subject.findOneAndUpdate({_id:req.body.teacher_subject},{
         $set:{
             isAssigned : true
         }
     });
-    user.create(newTeacher, (error, teacherData) => {
+    user.create(newTeacher, async(error, teacherData) => {
         if (error) {
-            return res.redirect("/addTeacher");
+            const fetchedSubject = await subject.find({isAssigned:false});
+            res.render('addTeacher',{subjects: fetchedSubject,errorOccured:`${error}`,success:'success'});
         }
         else {
             console.log('Teacher has been added successfully', teacherData);
-            res.redirect('/addTeacher');
+            const fetchedSubject = await subject.find({isAssigned:false});
+            res.render('addTeacher',{subjects: fetchedSubject,errorOccured:null,success:'success'});
         }
     });
 }

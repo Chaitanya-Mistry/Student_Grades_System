@@ -16,7 +16,12 @@
             <!-- Add Teacher Form Goes Here -->
             <form action="addTeacher" method="post" id="teacher_form" class="general_form">
                 <!-- Incoming Messages From Server -->
-
+                <%if(errorOccured){%>
+                    <h2 class="error"><%=errorOccured%></h2>
+                <%}%>
+                <%if(success){%>
+                    <h2 class="success">Teacher's record has been created<span style='font-size:30px;'>&#129488;</span></h2>
+                <%}%>
                 <h2>Add Teacher</h2>
                 <input type="text" name="teacher_name" id="teacher_name" placeholder="Name" required>
                 <h5 id="teacher_name_check" style="color: red;">

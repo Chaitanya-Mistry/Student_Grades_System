@@ -87,7 +87,7 @@ app.get('/addSubject',adminAuthentication,(req,res)=>{
 });
 app.get('/addTeacher',adminAuthentication,async(req,res)=>{
     const fetchedSubject = await subject.find({isAssigned:false});
-    res.render('addTeacher',{subjects: fetchedSubject});
+    res.render('addTeacher',{subjects: fetchedSubject,errorOccured:null,success:null});
 });
 app.get('/addStudent',adminAuthentication,async(req,res)=>{
     const fetchedSubjects = await subject.find({});
