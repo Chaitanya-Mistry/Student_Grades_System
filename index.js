@@ -41,7 +41,7 @@ app.use(ExpressSession({
     secret: 'I am a rockstar'
 }));
 
-let port = process.env.port;
+let port = process.env.PORT;
 if(port == null || port == ""){
     port = 4000;
 }
