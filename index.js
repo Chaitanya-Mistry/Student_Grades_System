@@ -41,7 +41,10 @@ app.use(ExpressSession({
     secret: 'I am a rockstar'
 }));
 
-const port = 4000;
+let port = process.env.port;
+if(port == null || port == ""){
+    port = 4000;
+}
 
 app.listen(port, () => {
     console.log(`App is listening on port ${port}`);
